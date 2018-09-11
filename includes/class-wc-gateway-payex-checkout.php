@@ -582,6 +582,10 @@ class WC_Gateway_Payex_Checkout_V2 extends WC_Gateway_Payex_Cc
 		if ( ! empty( $paymentorder_id ) ) {
 			$result = $this->request( 'GET', $paymentorder_id . '/payers' );
 
+			if (!isset($result['payer'])) {
+			    return;
+            }
+
 			// Parse name field
 			$parser = new \FullNameParser();
 			$name = $parser->parse_name( $result['payer']['shippingAddress']['addressee'] );
